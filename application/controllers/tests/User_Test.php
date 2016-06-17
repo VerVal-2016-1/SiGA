@@ -189,4 +189,162 @@ class User_Test extends TestCase{
 
         $this->unit->run($user, FALSE, $test_name, $notes);
     }
+
+    // Name tests
+
+    public function shouldInstantiateWithValidFullName(){
+
+        $id = 1;
+        $name = "Carlos Batista da Silva";
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        if ($user !== FALSE) {
+            $expected = $user->getName();
+        }else{
+            $expected = FALSE;
+        }
+
+        $test_name = "Test if creates a user with a full name ";
+
+        $this->unit->run($name, $expected, $test_name, $notes);
+    }
+
+    public function shouldInstantiateWithValidFullNameWithAccent(){
+
+        $id = 1;
+        $name = "João Batista da Silva";
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        if ($user !== FALSE) {
+            $expected = $user->getName();
+        }else{
+            $expected = FALSE;
+        }
+
+        $test_name = "Test if creates a user with a full name ";
+
+        $this->unit->run($name, $expected, $test_name, $notes);
+    }
+
+    public function shouldNotInstantiateWithInvalidBlankName(){
+
+        $id = 1;
+        $name = "";
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        $test_name = "Test if do not creates a user with blank name ";
+
+        $this->unit->run($user, FALSE, $test_name, $notes);
+    }
+
+    public function shouldNotInstantiateWithInvalidNullName(){
+
+        $id = 1;
+        $name = NULL;
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        $test_name = "Test if do not creates a user with null name ";
+
+        $this->unit->run($user, FALSE, $test_name, $notes);
+    }
+
+    public function shouldNotInstantiateWithInvalidFalseName(){
+
+        $id = 1;
+        $name = FALSE;
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        $test_name = "Test if do not creates a user with false name ";
+
+        $this->unit->run($user, FALSE, $test_name, $notes);
+    }
+
+    public function shouldNotInstantiateWithInvalidArrayName(){
+
+        $id = 1;
+        $name = array();
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        $test_name = "Test if do not creates a user with array name ";
+
+        $this->unit->run($user, FALSE, $test_name, $notes);
+    }
+
+    public function shouldNotInstantiateWithInvalidNotAlphaName(){
+
+        $id = 1;
+        $name = "1234";
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        $test_name = "Test if do not creates a user with not alpha name ";
+
+        $this->unit->run($user, FALSE, $test_name, $notes);
+    }
+
+    public function shouldNotInstantiateWithInvalidNotAlphaPartialName(){
+
+        $id = 1;
+        $name = "Marina 45Rui";
+
+        $notes = "";
+        try{
+            $user = new User($id, $name);
+        }catch(UserException $e){
+            $user = FALSE;
+            $notes = "<b>Thrown Exception:</b> <i>".get_class($e)."</i> - ".$e->getMessage();
+        }
+
+        $test_name = "Test if do not creates a user with not alpha partial name ";
+
+        $this->unit->run($user, FALSE, $test_name, $notes);
+    }
 }
