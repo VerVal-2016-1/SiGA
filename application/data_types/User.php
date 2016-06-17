@@ -19,7 +19,7 @@ class User{
 	private $homePhone;
 	private $cellPhone;
 	
-	public function __construct($id = FALSE, $name = FALSE, $cpf = FALSE, $email = FALSE, $login = FALSE, $password = FALSE, $groups = FALSE, $homePhone = FALSE, $cellPhone = FALSE){
+	public function __construct($id, $name, $cpf = FALSE, $email = FALSE, $login = FALSE, $password = FALSE, $groups = FALSE, $homePhone = FALSE, $cellPhone = FALSE){
 		$this->setId($id);
 		$this->setName($name);
 		$this->setCpf($cpf);
