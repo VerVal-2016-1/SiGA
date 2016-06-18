@@ -1,6 +1,6 @@
 <?php
 
-require_once APPPATH.'/tests/TestException.php';
+require_once '../TestException.php';
 
 abstract class UnitCaseTest extends PHPUnit_Framework_TestCase{
 
@@ -13,24 +13,29 @@ abstract class UnitCaseTest extends PHPUnit_Framework_TestCase{
         $name = str_replace("Test", "", $className);
         $capitalizeName = ucfirst($name);
 
-        $it = new RecursiveDirectoryIterator(DOMAINPATH);
-        $file_exists = FALSE;
+        $file_path = UnitCaseTest::search_class_file($capitalizeName);
 
-        foreach (new RecursiveIteratorIterator($it) as $file) {
-            $file_name = $file->getFileName();
-            if($file_name == $capitalizeName.".php"){
-                $file_exists = TRUE;
-                $file_path = $file->getPathName();
-                break; 
-            }
-        }
-
-        if ($file_exists) {
+        if (!empty($file_path)) {
             require_once $file_path;
         }
         else{
             throw new TestException("File could not be found", 0);
         }
+    }
+
+    public static function search_class_file($class_name){
+        $file_path = "";
+
+        $it = new RecursiveDirectoryIterator(DOMAINPATH);
+        foreach (new RecursiveIteratorIterator($it) as $file) {
+            $file_name = $file->getFileName();
+            if($file_name == $class_name.".php"){
+                $file_path = $file->getPathName();
+                break; 
+            }
+        }
+
+        return $file_path;
     }
     
     public function setUp() {   

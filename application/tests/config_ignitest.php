@@ -9,7 +9,6 @@
  	* Domains Path
 */
 
-
 // Controllers path
 $controllersPath = APPPATH."controllers/";
 define(CONTROLLERPATH, $controllersPath);

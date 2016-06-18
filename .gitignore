@@ -12,3 +12,4 @@ siga.sublime-workspace
 /vendor-dependencies
 /application/constants/EmailSenderData.php
 /application/third_party
+/application/tests/ignitest
