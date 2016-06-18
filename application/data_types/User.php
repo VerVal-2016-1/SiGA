@@ -1,12 +1,18 @@
 <?php
 
 require_once(APPPATH."/exception/UserException.php");
+require_once(APPPATH."/data_types/basic/Phone.php");
 
 class User{
 
 	const INVALID_ID = "O ID do usuário informado é inválido. O ID deve ser maior que zero.";
 	const INVALID_NAME = "O nome do usuário informado é inválido. Deve conter apenas caracteres alfabéticos e espaços em branco.";
-	
+	const NULL_CPF = "O CPF não pode ser nulo ou vazio.";
+	const NULL_EMAIL = "O email não pode ser nulo ou vazio.";
+	const NULL_LOGIN = "O login não pode ser nulo ou vazio.";
+	const NULL_PASSWORD = "A senha não pode ser nula ou vazia.";
+	const NULL_PHONE = "O telefone não pode ser nulo ou vazio.";
+	const NULL_GROUP = "Os grupos não podem ser nulos ou vazios.";
 	const MINIMUN_ID = 1;
 
 	private $id;
@@ -87,34 +93,125 @@ class User{
 	}
 
 	private function setCpf($cpf){
-		$this->cpf = $cpf;
+
+		if($cpf !== FALSE){	
+			if (!is_null($cpf) && !empty($cpf)) {
+				$this->cpf = $cpf;
+			}
+			else{
+				throw new UserException(self::NULL_CPF);
+				
+			}
+		}
+		else{
+			$this->cpf = $cpf;
+		}
 	}
 
 	private function setEmail($email){
-		$this->email = $email;
+
+		if($email !== FALSE){
+
+			if (!is_null($email) && !empty($email)) {
+				$this->email = $email;	
+			}
+			else{
+				throw new UserException(self::NULL_EMAIL);
+			}
+		}
+		else{
+			$this->email = $email;
+		}
 	}
 
 	private function setLogin($login){
-		$this->login = $login;
+		
+		if($login !== FALSE){
+
+			if (!is_null($login) && !empty($login)) {
+				$this->login = $login;
+			}
+			else{
+				throw new UserException(self::NULL_LOGIN);
+			}
+		}
+		else{
+			$this->login = $login;
+		}
+
 	}
 
 	private function setPassword($password){
-		$this->password = $password;
+
+		if($password !== FALSE){
+			if (!is_null($password) && !empty($password)) {
+				$this->password = $password;
+			}
+			else{
+				throw new UserException(self::NULL_PASSWORD);
+			}
+		}
+		else{
+			$this->password = $password;
+		}
 	}
 
 	private function setGroups($groups){
 		if($groups !== FALSE){
-			$this->groups = $groups;
-		}else{
+			if(!is_null($groups) && !empty($groups)){
+
+				$this->groups = $groups;
+			} 
+			else{
+				throw new UserException(self::NULL_GROUP);
+				
+			}
+		}
+		else{
 			$this->groups = array();
 		}
 	}
 	private function setHomePhone($homePhone){
-		$this->homePhone = $homePhone;
+		if($homePhone !== FALSE){
+
+			if (!is_null($homePhone) && !empty($homePhone)) {
+				try {
+					$number = new Phone($homePhone);	
+					$this->homePhone = $number;
+				}
+				catch (Exception $error) {
+					throw new UserException($error->getMessage());
+				}	
+			}
+			else{
+				throw new UserException(self::NULL_PHONE);
+			}
+		}
+		else{
+			$this->homePhone = $homePhone;		
+		}
 	}
 
 	private function setCellPhone($cellPhone){
-		$this->cellPhone = $cellPhone;
+		
+		if($cellPhone !== FALSE){
+
+			if (!is_null($cellPhone) && !empty($cellPhone)) {
+				try {
+					$number = new Phone($cellPhone);
+					$this->cellPhone = $number;
+				}
+				catch (Exception $error) {
+					throw new UserException($error->getMessage());
+				}	
+			}
+			else{
+				throw new UserException(self::NULL_PHONE);
+			}
+		}
+		else{
+			$this->cellPhone = $cellPhone;
+		}
 	}
 
 	// Getters
@@ -148,9 +245,17 @@ class User{
 	}
 
 	public function getHomePhone(){
-		return $this->homePhone;
+		$homePhone = $this->homePhone;
+		if($homePhone !== FALSE){
+			$homePhone = $homePhone->getNumber();
+		}
+		return $homePhone;
 	}
 	public function getCellPhone(){
-		return $this->cellPhone;
+		$cellPhone = $this->cellPhone;
+		if($cellPhone !== FALSE){
+			$cellPhone = $cellPhone->getNumber();
+		}
+		return $cellPhone;
 	}
 }
