@@ -112,7 +112,7 @@ $route['selection_process'] = 'selectiveprocess/index';
  * Test report routes
  * To display the tests results of a class type in the url: ../class_test
  */
-$route['user_test'] = 'tests/user_test';
+$route['user_test'] = 'tests/User_Test';
 $route['department_test'] = 'tests/department_test';
 $route['employee_test'] = 'tests/employee_test';
 $route['function_test'] = 'tests/function_test';
