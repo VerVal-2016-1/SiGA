@@ -1,6 +1,6 @@
 <?php
 
-require_once '../TestException.php';
+require_once APPPATH.'/tests/ignitest/src/exception/TestException.php';
 
 abstract class UnitCaseTest extends PHPUnit_Framework_TestCase{
 
@@ -13,7 +13,7 @@ abstract class UnitCaseTest extends PHPUnit_Framework_TestCase{
         $name = str_replace("Test", "", $className);
         $capitalizeName = ucfirst($name);
 
-        $file_path = UnitCaseTest::search_class_file($capitalizeName);
+        $file_path = $this->search_class_file($capitalizeName);
 
         if (!empty($file_path)) {
             require_once $file_path;
@@ -23,7 +23,7 @@ abstract class UnitCaseTest extends PHPUnit_Framework_TestCase{
         }
     }
 
-    public static function search_class_file($class_name){
+    public function search_class_file($class_name){
         $file_path = "";
 
         $it = new RecursiveDirectoryIterator(DOMAINPATH);
