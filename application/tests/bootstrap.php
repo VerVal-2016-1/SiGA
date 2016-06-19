@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 /*
  *---------------------------------------------------------------
@@ -195,16 +195,21 @@ if (defined('ENVIRONMENT'))
 		define('COMPOSER_DEPENDENCIES', BASEPATH."vendor-dependencies/");
 	}
 
-/*
- * --------------------------------------------------------------------
- * LOAD THE BOOTSTRAP FILE
- * --------------------------------------------------------------------
- *
- * And away we go...
- *
- */
- 
 require_once BASEPATH.'core/CodeIgniter.php';
-include('config_ignitest.php');
-/* End of file index.php */
-/* Location: ./index.php */
+
+/*
+ *************************************************************
+ Configuration for ignite test
+ 
+ * Content:
+ 	* Controllers Path
+ 	* Domains Path
+*/
+
+// Controllers path
+$controllersPath = APPPATH."controllers/";
+define("CONTROLLERPATH", $controllersPath);
+
+// Domains path
+$domainsPath = APPPATH."data_types/";
+define("DOMAINPATH", $domainsPath);
